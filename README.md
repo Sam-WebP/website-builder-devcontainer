@@ -1,6 +1,6 @@
 # App Builder - Devcontainer Definition
 
-This repository contains the Devcontainer definition used to create isolated development environments for the [Your App Name] website builder.
+This repository contains the Devcontainer definition used to create isolated development environments for the website builder.
 
 It defines:
 - The base operating system and Node.js version.
