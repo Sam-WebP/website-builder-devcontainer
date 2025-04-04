@@ -1,0 +1,50 @@
+{
+    "name": "Wasp/Tailwind Project Environment (Coder)",
+    // Reference the Dockerfile in the same directory
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    // Optional: Add features like Docker-in-Docker if needed later
+    // "features": {
+    //   "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    // },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "RooVeterinaryInc.roo-cline", // Cline extension
+                "dbaeumer.vscode-eslint", // JavaScript/TypeScript Linter
+                "esbenp.prettier-vscode", // Code Formatter
+                "bradlc.vscode-tailwindcss", // Tailwind CSS IntelliSense
+                "ms-vscode.vscode-typescript-next", // TypeScript Support
+                "github.vscode-github-actions" // If using GitHub Actions
+                // Add any other essential extensions for your specific frameworks (Next, Nuxt, etc.)
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "files.eol": "\n", // Ensure consistent line endings
+                // Add any settings required by roo-cline here if documented
+            }
+        }
+    },
+    // Commands to run after the container is created but BEFORE the repo is cloned/mounted
+    // Better to do OS package installs in the Dockerfile
+    // "onCreateCommand": "",
+    // Commands to run after the container is created AND your source code is mounted/cloned.
+    // Use this for project-specific setup if needed, but Wasp might handle it.
+    // Example: assumes pnpm is installed globally via Dockerfile or base image
+    // "postCreateCommand": "if [ -f package.json ]; then pnpm install; fi",
+    // Command to run automatically when attaching to the container (e.g., starting code-server).
+    // Starts the command listener in the background.
+    "postAttachCommand": "node /usr/local/share/command-listener.mjs &",
+    // Forward the internal command listener port (optional but good practice)
+    // This port is accessed INTERNALLY by your Wasp backend, not usually exposed externally.
+    "forwardPorts": [
+        9000
+    ],
+    // The folder where the project source code will be mounted.
+    "workspaceFolder": "/workspaces",
+    // Specifies how the workspace folder is mounted (managed by Coder/Envbuilder via main.tf volumes)
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces,type=volume,consistency=cached",
+    // Run as the default non-root user configured in the Dockerfile/base image (usually vscode or node)
+    "remoteUser": "vscode" // Or "node" depending on the base image - check MCR image docs
+}
